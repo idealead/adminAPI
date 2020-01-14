@@ -1,0 +1,70 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href=" ">模板绘制任务列表</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="get" action="{:url('TaskDraw/index')}">
+        绘制人名称:
+        <input type="text" class="form-control" name="keyword_user_name" style="width: 200px;"
+               value="{$keyword_user_name|default=''}" placeholder="请输入模板审核人名称..."> &nbsp;&nbsp;
+        绘制任务名称:
+        <input type="text" class="form-control" name="keyword_task_name" style="width: 200px;"
+               value="{$keyword_task_name|default=''}" placeholder="请输入模板审核人编号..."> &nbsp;&nbsp;
+        模板审核状态:
+        <select class="form-control" name="search_classify" style="width: 140px;">
+            <option value='1'>待绘制</option>
+        </select> &nbsp;&nbsp;
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href="{:url('TaskDraw/index')}">清空</a>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">任务编号</th>
+            <th width="100">模板绘制人</th>
+            <th width="60">绘制任务名称</th>
+            <th width="60">绘制状态</th>
+            <th width="80">重新分配操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.user_name}</td>
+                <td>{$vo.task_name}</td>
+                <td>{:getDrawStatusName($vo.status)}</td>
+                <td hidden="hidden">{$vo.user_id}</td>
+                <td hidden="hidden">{$vo.task_category_id}</td>
+                <td>
+                    <a class="btn btn-success js-ajax-submit"  href="{:url('TaskDraw/reallocateDraw',array('id'=>$vo['id'],'user_id'=>$vo['user_id'],'category_id'=>$vo['task_category_id']))} ">所选任务</a>
+                    <a class="btn btn-success js-ajax-submit"  href="{:url('TaskDraw/groupReallocateDraw',array('id'=>$vo['id'],'user_id'=>$vo['user_id'],'category_id'=>$vo['task_category_id']))} ">该组任务</a>
+                    <a class="btn btn-success js-ajax-submit"  href="{:url('TaskDraw/allReallocateDraw',array('id'=>$vo['id'],'user_id'=>$vo['user_id']))} ">全部任务</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

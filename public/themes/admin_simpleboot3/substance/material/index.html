@@ -1,0 +1,114 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Material/index')}">素材列表</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="get" action="{:url('Material/index')}">
+        所属维度:
+        <select class="form-control" name="search_dimension_id" style="width: 200px;">
+            <option value='0'>全部</option>
+            {$dimension_select}
+            <option value="bad_value" {$dimension_select_bad_value} style="color: #E74C3C;">未知/未选择/维度已失效</option>
+        </select> &nbsp;&nbsp;
+        素材类型:
+        <select class="form-control" name="search_material_type" style="width: 140px;">
+            <option value='0'>全部</option>
+            <option value="img"     {$search_material_type_img}   >单图</option>
+            <option value="whole"   {$search_material_type_whole} >多素材组合</option>
+            <option value="text"    {$search_material_type_text}  >纯文本</option>
+        </select> &nbsp;&nbsp;
+        素材分类:
+        <select class="form-control" name="search_attribute_type" style="width: 140px;">
+            <option value='0'>全部</option>
+            <option value="1"   {$search_attribute_type_1} >普通素材/独立模板素材</option>
+            <option value="2"   {$search_attribute_type_2} >通用素材/共享素材</option>
+        </select> &nbsp;&nbsp;
+        状态:
+        <select class="form-control" name="search_status" style="width: 140px;">
+            <option value=''>全部</option>
+            <option value='status1' {$search_status_1} >正常</option>
+            <option value='status0' {$search_status_0} >未审核/待审核</option>
+        </select> &nbsp;&nbsp;
+        上传时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}">
+        </br>
+        </br>
+        </br>
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="{:url('Material/index')}">清空</a>
+    </form>
+
+    <form action="{:url('pub/Pub/list_orders',['listorder_model'=>'material'])}" method="post" class="js-ajax-form margin-top-20">    
+        <div class="table-actions">
+            <button class="btn btn-sm btn-primary js-ajax-submit" type="submit">{:lang('SORT')}</button>
+        </div>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th width="40">排序</th>
+                <th width="60">素材编号</th>
+                <th width="100">预览图</th>
+                <th width="100">纯文本内容</th>
+                <th width="60">素材类型</th>
+                <th width="100">所属维度</th>
+                <th width="200">包含标签</th>
+                <th width="80">上传者</th>
+                <th width="160">上传时间</th>
+                <th width="60">状态</th>
+                <th width="120">素材分类</th>
+                <th width="80">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="material_data" item="vo">
+                <tr>
+                    <td>
+                        <input name='list_orders[{$vo.id}]' class="input input-order mr5" type='text' size='3' value='{$vo.listorder}'>
+                    </td>
+                    <td>{$vo.id}</td>
+                    <!-- <td>{$vo.path}</td> -->
+                    <td style="height: 100px;">
+                        <notempty name="vo.path">
+                            <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($vo['path'],$vo['type'])}');">
+                                <img src="{:files_truth_path($vo['path'],$vo['type'])}" style="max-height: 100px;max-width: 200px;">
+                            </a>
+                        <else/>
+                            ━
+                        </notempty>
+                    </td>
+                    <td style="height: 100px;">
+                        <notempty name="vo.text_content">
+                            {$vo.text_content}
+                        <else/>
+                            ━
+                        </notempty>
+                    </td>
+                    <td>{$vo.material_type}</td>
+                    <td>{$vo.dimension_name|default="<span class='btn btn-xs btn-danger'>未知/未选择/维度已失效</span>"}</td>
+                    <td>{$vo.label_id|default="━"}</td>
+                    <td>{$vo.author}</td>
+                    <td>{$vo.modify}</td>
+                    <td>{$vo.status}</td>
+                    <td>{$vo.attribute_type}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="{:url('Material/edit',array('id'=>$vo['id']))}">详情</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('pub/Pub/delete',array('id'=>$vo['id'],'delet_model'=>'material'))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page|default=''}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

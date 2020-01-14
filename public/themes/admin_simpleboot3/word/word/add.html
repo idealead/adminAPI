@@ -1,0 +1,52 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">文案添加</a></li>
+    </ul>
+
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Word/addWord')} ">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板编号:</label>
+            <div class="col-md-6 col-sm-5">
+                <input  class="form-control" name="template_id" value="{$data.id}" readonly="readonly">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_name" value="{$data.template_name}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板图片:</label>
+            <div class="col-md-6 col-sm-10">
+                <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($data['path'],$data['type'])}');">
+                    <img src="{:files_truth_path($data['path'],$data['type'])}" style="max-height: 100px;max-width: 200px;">
+                </a>
+
+            </div>
+        </div>
+
+        <foreach name="word" item="v">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{$v.rule_name}:</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id={$v.id}  name={$v.id} value="" placeholder="请输入与标题符合的文案">
+                    </div>
+                </div>
+        </foreach>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">提交</button>
+            <a class="btn btn-default" href="{:url('Word/index')} ">返回</a>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

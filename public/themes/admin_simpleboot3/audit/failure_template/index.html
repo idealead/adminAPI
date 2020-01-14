@@ -1,0 +1,72 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">审核模板失败列表</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="get" action="{:url('FailureTemplate/index')}">
+        审核失败类型:
+        <select class="form-control" name="search_classify" style="width: 140px;">
+            <option value='0'>模板审核</option>
+        </select> &nbsp;&nbsp;
+        审批失败时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}">
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href="{:url('FailureTemplate/index')}">清空</a>
+    </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">信息编号</th>
+            <th width="100">模板编号</th>
+            <th width="60">审核人</th>
+            <th width="100">审核状态</th>
+            <th width="60">原图片</th>
+            <th width="60">理由</th>
+            <th width="60">详细</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.template_id}</td>
+                <td>{:getUserName($vo.template_user_id)}</td>
+                <td>{:getTemplateStatusName($vo.template_status)}</td>
+                <td>
+                    <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($vo['path'],$vo['type'])}');">
+                        <img src="{:files_truth_path($vo['path'],$vo['type'])}" style="max-height: 100px;max-width: 200px;">
+                    </a>
+                </td>
+                <td>{$vo.template_failure_reason}</td>
+                <td><a href="javascript:parent.openIframeLayer('{:url('AuditTemplate/historyDetails',array('id'=>$vo['id']))}');" >详情</a></td>
+
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

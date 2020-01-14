@@ -1,0 +1,65 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Label/index')}">标签列表</a></li>
+        <li><a href="{:url('Label/add')}">添加标签</a></li>
+    </ul>
+    
+    <form class="well form-inline margin-top-20" method="get" action="{:url('Label/index')}">
+        按分搜索:
+        <select class="form-control" name="select_category_id" style="width: 140px;">
+            <option value='0'>全部</option>
+            {$select_category}
+        </select> &nbsp;&nbsp;
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="{:url('Label/index')}">清空</a>
+    </form>
+
+    <form action="{:url('pub/Pub/list_orders',['listorder_model'=>'label'])}" method="post" class="js-ajax-form margin-top-20">
+        <!-- <input type="hidden" name="listorder_model" value="label"> -->
+    
+        <div class="table-actions">
+            <button class="btn btn-sm btn-primary js-ajax-submit" type="submit">{:lang('SORT')}</button>
+        </div>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th width="80">排序</th>
+                <th width="40">ID</th>
+                <th>标签名称</th>
+                <th width="200">描述</th>
+                <th width="200">标签分类</th>
+                <th width="160">发布时间</th>
+                <th width="80">状态</th>
+                <th width="100">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="dimension_data" item="vo">
+                <tr>
+                    <td>
+                        <input name='list_orders[{$vo.id}]' class="input input-order mr5" type='text' size='3' value='{$vo.listorder}'>
+                    </td>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.label_name}</td>
+                    <td>{$vo.remark|default="━"}</td>
+                    <td>{$vo.classify_name|default="<span class='btn btn-xs btn-danger'>未选择分类 或 该分类已下架</span>"}</td>
+                    <td>{$vo.createtime}</td>
+                    <td>{$vo.status}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="{:url('Label/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('pub/Pub/delete',array('id'=>$vo['id'],'delet_model'=>'label'))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page|default=''}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

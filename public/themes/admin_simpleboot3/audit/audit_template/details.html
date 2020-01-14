@@ -1,0 +1,76 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">模板详细信息</a></li>
+    </ul>
+
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action=" ">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板编号:</label>
+            <div class="col-md-6 col-sm-5">
+                <input type="text" class="form-control" name="id" value="{$template_data.id}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_name" value="{$template_data.template_name}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板分类:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="classify_name" value="{$template_data.classify_name}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板宽度:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_width" value="{$template_data.template_width}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板高度:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_height" value="{$template_data.template_height}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板标签:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="label_id" value="{$template_data.label_id}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板图片:</label>
+            <div class="col-md-6 col-sm-10">
+                <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($template_data['path'],$template_data['type'])}');">
+                    <img src="{:files_truth_path($template_data['path'],$template_data['type'])}" style="max-height: 100px;max-width: 200px;">
+                </a>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上传人:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="author" value="{:getUserName($template_data.author)}" disabled="disabled">
+
+            </div>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

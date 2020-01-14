@@ -1,0 +1,65 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('TaskCategory/index')}">已发布列表</a></li>
+        <li><a href="{:url('TaskCategory/add')}">发布新任务</a></li>
+    </ul>
+
+        <form class="well form-inline margin-top-20" method="get" action="{:url('TaskCategory/index')}">
+            任务名称:
+            <input type="text" class="form-control" name="keyword" style="width: 200px;"
+                   value="{$keyword|default=''}" placeholder="请输入任务名称的关键字..."> &nbsp;&nbsp;
+            任务分配模式:
+            <select class="form-control" name="search_classify" style="width: 140px;">
+                <option value='1'>自动分配</option>
+            </select> &nbsp;&nbsp;
+
+            <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+            <a class="btn btn-danger" href="{:url('TaskCategory/index')}">清空</a>
+        </form>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th width="40">ID</th>
+                <th width="160">优先级</th>
+                <th width="100">任务名称</th>
+                <th width="200">任务数量</th>
+                <th width="200">任务分类</th>
+                <th width="160">风格</th>
+                <th width="160">行业</th>
+                <th width="160">色调</th>
+                <th width="160">标签</th>
+                <th width="160">备注</th>
+                <th width="80">分配方式</th>
+                <th width="100">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.sort}</td>
+                    <td>{$vo.task_name}</td>
+                    <td>{$vo.number}</td>
+                    <td>{$vo.category_name}</td>
+                    <td>{$vo.style}</td>
+                    <td>{$vo.industry}</td>
+                    <td>{$vo.tone}</td>
+                    <td>{$vo.label}</td>
+                    <td>{$vo.note}</td>
+                    <td>{$vo.status}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="{:url('TaskCategory/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page|default=''}</div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

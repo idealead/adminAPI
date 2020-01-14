@@ -1,0 +1,50 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">用户反馈列表</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="get" action=" ">
+        反馈人名称:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入名称的关键字..."> &nbsp;&nbsp;
+
+        <input type="text" class="form-control" name="dep_name" style="width: 200px;"
+               value="{$dep_name|default=''}" placeholder="请输入部门名称..."> &nbsp;&nbsp;
+        共计反馈：
+        <input  class="form-control" name="template_id" value="{$num}条" readonly="readonly">
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href=" ">清空</a>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">反馈信息编号</th>
+            <th width="60">满意程度</th>
+            <th width="80">反馈内容</th>
+            <th width="160">反馈人</th>
+            <th width="160">所在部门</th>
+            <th width="80">反馈时间</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.class_name}</td>
+                    <td>{$vo.content}</td>
+                    <td>{$vo.user_name}</td>
+                    <td>{$vo.dep_name}</td>
+                    <td>{$vo.create_time}</td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

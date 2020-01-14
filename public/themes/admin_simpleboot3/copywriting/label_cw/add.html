@@ -1,0 +1,30 @@
+<include file="public@header"/>
+
+</head>
+
+<body>
+    <div class="wrap js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="{:url('LabelCw/index')}">文本标签列表</a></li>
+            <li><a href="{:url('LabelCw/add')}">添加新标签</a></li>
+        </ul>
+            <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('LabelCw/add')}">
+                <input type="hidden" name="dimension_id" value="1">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">标签名称:</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" name="label_name" value="" placeholder="请填写标签名称">
+                    </div>
+                </div>
+
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+                    <a class="btn btn-default" href="{:url('LabelCw/index')}">返回</a>
+                </div>
+            </form>
+        <script src="__STATIC__/js/admin.js"></script>
+
+</div>
+</body>
+</html>

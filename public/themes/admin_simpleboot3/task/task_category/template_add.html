@@ -1,0 +1,24 @@
+
+        <div class="form-group">
+        <label class="col-md-2 control-label">人员信息
+       </label>
+        <div class="col-sm-3 col-md-3 col-xs-3">
+        <select class="form-control" name="user_id[]" >
+
+        <php>foreach($data as $vo){</php>
+                <option  value="{$vo.id}" selected>{$vo.user_name}</option>
+
+        <php>}</php>
+
+        </select>
+        </div>
+        <div class="col-sm-3 col-md-3 col-xs-3" >
+        <input type="text" class="form-control sort" name="user_num[]" value="" placeholder="请填写数量"/>
+        </div>
+        <div class="col-sm-1 col-md-1 col-xs-1 my-icon ">
+        <a href="javascript:;" class="addInputReturn " >
+      <span class="glyphicon glyphicon-plus"></span>
+     </a>
+
+    </div>
+        </div>

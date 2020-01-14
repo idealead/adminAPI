@@ -1,0 +1,33 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">个人抠图统计</a></li>
+    </ul>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">用户id</th>
+            <th width="100">用户名称</th>
+            <th width="60">抠图时间</th>
+            <th width="60">抠图状态</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.user_id}</td>
+                    <td>{$vo.user_name}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.status}</td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

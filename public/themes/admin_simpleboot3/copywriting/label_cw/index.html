@@ -1,0 +1,57 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+<ul class="nav nav-tabs">
+            <li class="active"><a href="">标签列表</a></li>
+            <li><a href="{:url('LabelCw/add')}">添加新标签</a></li>
+        </ul>
+    <form class="well form-inline margin-top-20" method="get" action="{:url('LabelCw/index')}">
+       位置名称:
+        <input type="text" class="form-control" name="keyword_name" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入位置名称的关键字..."> &nbsp;&nbsp;
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href="{:url('LabelCw/index')}">清空</a>
+    </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">标签编号</th>
+            <th width="100">标签名称</th>
+            <th width="100">标签创建时间</th>
+            <th width="80">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.label_name}</td>
+                <td>{$vo.create_time}</td>
+                <td>
+                    <a class="btn btn-success js-ajax-submit"  href="{:url('LabelCw/edit',array('label_name'=>$vo['label_name'],'id'=>$vo['id']))} ">修改</a>
+                    <a class="btn btn-danger js-ajax-submit"  href="{:url('LabelCw/del',array('id'=>$vo['id']))} ">删除</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

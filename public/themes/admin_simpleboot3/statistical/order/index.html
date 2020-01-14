@@ -1,0 +1,81 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">订单统计</a></li>
+    </ul>
+    
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Order/index')}">
+        员工名称:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入员工名称的关键字..."> &nbsp;&nbsp;
+        部门名称:
+        <select class="form-control" name="department" style="width: 140px;">
+            <foreach name="data_dep" item="v">
+                <option value='{$v.id}'>{$v.dep_name}</option>
+            </foreach>
+
+        </select> &nbsp;&nbsp;
+
+        金额:
+        <select class="form-control" name="search_status" style="width: 140px;">
+            <option value='10'>10币</option>
+        </select> &nbsp;&nbsp;
+        上传时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}"
+               style="width: 140px;" autocomplete="off">
+        </br>
+        </br>
+        </br>
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="{:url('Order/index')}">清空</a>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">订单编号</th>
+            <th width="100">预览图</th>
+            <th width="60">模板编号</th>
+            <th width="60">购买人</th>
+            <th width="80">部门</th>
+            <th width="100">购买时间</th>
+            <th width="60">价格</th>
+            <th width="60">订单状态</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td style="height: 100px;">
+                        <notempty name="vo.path">
+                            <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($vo['path'],$vo['type'])}');">
+                                <img src="{:files_truth_path($vo['path'],$vo['type'])}" style="max-height: 100px;max-width: 200px;">
+                            </a>
+                        <else/>
+                            ━
+                        </notempty>
+                    </td>
+                    <td>{$vo.template_id}</td>
+                    <td>{$vo.user_name}</td>
+                    <td>{$vo.department_name|default="━"}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.price}</td>
+                    <td>完成</td>
+                    <td style="display: none">{$vo.user_id}</td>
+                    <td style="display: none">{$vo.department_id}</td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

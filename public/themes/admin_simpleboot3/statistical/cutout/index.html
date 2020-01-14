@@ -1,0 +1,52 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">抠图统计</a></li>
+    </ul>
+    
+    <form class="well form-inline margin-top-20" method="post" action=" ">
+        员工名称:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入员工名称的关键字..."> &nbsp;&nbsp;
+
+        上传时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}"
+               style="width: 140px;" autocomplete="off">
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="">清空</a>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">用户id</th>
+            <th width="100">用户名称</th>
+            <th width="60">抠图总数量</th>
+            <th width="60">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.user_id}</td>
+                    <td>{$vo.user_name}</td>
+                    <td>{$vo.num}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="javascript:parent.openIframeLayer('{:url('Cutout/detailed',array('user_id'=>$vo['user_id']))}');">查看详细</a>
+
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<include file="public@header"/>
+
+</head>
+    <style>
+        .person{
+            width: 100%;
+            height: 200px;
+        }
+        .sort{
+        width: 400px;
+        }
+
+    </style>
+<body>
+    <div class="wrap js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="{:url('Copywriting/index')}">文案列表</a></li>
+            <li><a href="">添加文案</a></li>
+        </ul>
+            <form method="post" class="form-horizontal margin-top-20" action="{:url('Copywriting/add')}">
+                <input type="hidden" name="dimension_id" value="1">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">文案内容:</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input  class="form-control" name="content" rows="5" cols="57" placeholder="请填写文案内容"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-parent_id" class="col-sm-2 control-label"><span class="form-required">*</span>文案位置</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select class="form-control" name="position_id" id="position_id">
+                             <foreach name="data_position" item="vp">
+                                     <option  value="{$vp.id}" selected>{$vp.position_name}</option>
+                                </foreach>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group" >
+                    <div class="person">
+                        <div id="index-div">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary ">{:lang("SAVE")}</button>
+                    <a class="btn btn-default" href="{:url('Copywriting/index')}">返回</a>
+                </div>
+            </form>
+        <script src="__STATIC__/js/admin.js"></script>
+
+        <script type="text/javascript">
+            var arr = {$data};
+
+            $(function () {
+                $.ajax({
+                    'url' : "{:url('copywriting/Copywriting/returnAddHtml')}",
+                    success:function(res) {
+                       $("#index-div").append(res);
+                    }
+                })
+            })
+
+    /**
+     * 动态添加事件
+     */
+        $("body").on('click','.addInputReturn',function () {
+
+      //添加减号
+            var $content = "";
+            $content += '<a href="javascript:;" class="delInput" >';
+            $content += '<span class="glyphicon glyphicon-minus"></span>';
+            $content += '</a>';
+            $(this).parent().append($content);
+
+            //去除加号
+            this.remove();
+             $.ajax({
+                        'url' : "{:url('copywriting/Copywriting/returnReHtml')}",
+                        success:function(res) {
+                           $("#index-div").append(res);
+                        }
+                    })
+        })
+
+        /**
+         * 删除事件
+         */
+        $("body").on('click','.delInput',function () {
+            //获取当前点击的元素的父级的父级进行删除
+            $(this).parent().parent().remove();
+        })
+
+    </script>
+</div>
+</body>
+</html>

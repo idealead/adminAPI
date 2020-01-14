@@ -1,0 +1,55 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href=" ">审核标签列表</a></li>
+    </ul>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">模板编号</th>
+            <th width="100">审核人</th>
+            <th width="60">审核状态</th>
+            <th width="100">任务分配时间</th>
+            <th width="60">历史信息</th>
+            <th width="60">详细</th>
+            <th width="80">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.template_id}</td>
+                <td>{$vo.label_user_id}</td>
+                <td>{$vo.label_status}</td>
+                <td>{$vo.createtime}</td>
+                <td><a href="javascript:parent.openIframeLayer('{:url('AuditLabel/historyList',array('template_id'=>$vo['template_id']))}');">历史信息</a></td>
+                <td><a href=" javascript:parent.openIframeLayer('{:url('AuditLabel/details',array('template_id'=>$vo['template_id']))}'); " >详情</a></td>
+                <td>
+                    <a class="btn btn-xs btn-success"  href="  {:url('AuditLabel/labelPass',array('template_id'=>$vo['template_id']))}">通过</a>
+                    <a class="btn btn-xs btn-danger " href="{:url('AuditLabel/labelFailure',array('template_id'=>$vo['template_id']))} ">不通过</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

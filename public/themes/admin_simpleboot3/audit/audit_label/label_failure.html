@@ -1,0 +1,86 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">标签审核失败理由填写</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('AuditLabel/submitFailure',array('id'=>$data.id))}">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板编号:</label>
+            <div class="col-md-6 col-sm-5">
+                <input type="text" class="form-control" name="id" value="{$data.id}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_name" value="{$data.template_name}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板分类:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="classify_name" value="{$data.classify_name}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板宽度:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_width" value="{$data.template_width}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板高度:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_height" value="{$data.template_height}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板标签:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="label_id" value="{$data.label_id}" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板图片:</label>
+            <div class="col-md-6 col-sm-10">
+                <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($data['path'],$data['type'])}');">
+                    <img src="{:files_truth_path($data['path'],$data['type'])}" style="max-height: 100px;max-width: 200px;">
+                </a>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上传人:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="author" value="{$data.author}" disabled="disabled">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">审核失败原因:<span class="form-required">*</span></label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="label_failure_reason" rows="5" cols="57" placeholder="请填写标签审核失败原因"></textarea>
+            </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a class="btn btn-default" href="{:url('AuditLabel/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

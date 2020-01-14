@@ -1,0 +1,41 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('Dimension/index')}">维度列表</a></li>
+        <li><a href="{:url('Dimension/add')}">添加维度</a></li>
+    </ul>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th width="40">ID</th>
+                <th>维度名称</th>
+                <th>维度英文名称</th>
+                <th width="200">描述</th>
+                <th width="80">首字母</th>
+                <th width="80">状态</th>
+                <th width="160">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="dimension_data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.dimension_name}</td>
+                    <td>{$vo.dimension_name_en}</td>
+                    <td>{$vo.dimension_des|default="━"}</td>
+                    <td>{$vo.initials}</td>
+                    <td>{$vo.status}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="{:url('Dimension/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('pub/Pub/delete',array('id'=>$vo['id'],'delet_model'=>'dimension'))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

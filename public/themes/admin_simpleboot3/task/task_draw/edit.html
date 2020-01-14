@@ -1,0 +1,76 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('TaskCategory/index')}">手动分配任务</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('TaskCategory/edit')}">
+        <input type="hidden" name="id" value="{$data.id}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>任务名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="name" value="{$data.task_name}" placeholder="任务名称">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>绘制人员:</label>
+
+            <select name="course_class" class="level1">
+                {foreach $data_user as $k=>$v}
+                <option value="{$v['id']}" >{$v['classname']}</option>
+                {/foreach}
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>任务数量:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="number" value="{$data.number}" placeholder="任务数量">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>风格:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="style" value="{$data.style}" placeholder="任务风格">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>行业:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="industry" value="{$data.industry}" placeholder="任务名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>色调搭配:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="tone" value="{$data.tone}" placeholder="任务名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>标签:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="label" value="{$data.label}" placeholder="任务名称">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">备注:</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="note" rows="5" cols="57" placeholder="请填写描述">{$data.note|default = ''}</textarea>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('TaskCategory/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href=" ">审核标签列表</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="get" action="{:url('TaskCategory/index')}">
+        任务名称:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入任务名称的关键字..."> &nbsp;&nbsp;
+        任务分配模式:
+        <select class="form-control" name="search_classify" style="width: 140px;">
+            <option value='1'>自动分配</option>
+        </select> &nbsp;&nbsp;
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href="{:url('TaskCategory/index')}">清空</a>
+    </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">模板编号</th>
+            <th width="100">标签审核人</th>
+            <th width="60">标签审核状态</th>
+            <th width="60">详细</th>
+            <th width="80">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.template_id}</td>
+                <td>{$vo.label_user_id}</td>
+                <td>{$vo.label_status}</td>
+                <td><a href="javascript:parent.openIframeLayer('{:url('TaskTemplate/s',array('template_id'=>$vo['template_id']))}');" >详情</a></td>
+                <td>
+                    <a class="btn btn-success"  href="{:url('TaskTemplate/e',array('template_user_id'=>$vo['template_user_id'],'id'=>$vo['id']))} ">重新分配任务该任务</a>
+                    <a class="btn btn-danger"  href="{:url('TaskTemplate/e',array('template_user_id'=>$vo['template_user_id'],'id'=>$vo['id']))} ">重新分配该审核人所有任务</a>
+
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

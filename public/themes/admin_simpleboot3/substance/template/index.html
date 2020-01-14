@@ -1,0 +1,90 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">模板列表</a></li>
+    </ul>
+    
+    <form class="well form-inline margin-top-20" method="get" action="{:url('Template/index')}">
+        模板名称:
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入模板名称的关键字..."> &nbsp;&nbsp;
+        模板分类:
+        <select class="form-control" name="search_classify" style="width: 140px;">
+            <option value='0'>全部</option>
+            {$search_classify_arr}
+        </select> &nbsp;&nbsp;
+        模板等级:
+        <select class="form-control" name="search_level" style="width: 140px;">
+            <option value=''>全部</option>
+            <option value='temporary' {$search_level_1} >临时模版</option>
+            <option value='permanent' {$search_level_0} >永久模版</option>
+        </select> &nbsp;&nbsp;
+        状态:
+        <select class="form-control" name="search_status" style="width: 140px;">
+            <option value=''>全部</option>
+            <option value='status1' {$search_status_1} >正常</option>
+            <option value='status0' {$search_status_0} >未审核/待审核</option>
+        </select> &nbsp;&nbsp;
+        上传时间:
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+               value="{$start_time|default=''}"
+               style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+               value="{$end_time|default=''}">
+        </br>
+        </br>
+        </br>
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="{:url('Template/index')}">清空</a>
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">模板编号</th>
+            <th width="100">预览图</th>
+            <th width="60">模板名称</th>
+            <th width="200">模板分类</th>
+            <th width="100">模板等级</th>
+            <th width="200">包含标签</th>
+            <th width="80">上传者</th>
+            <th width="160">上传时间</th>
+            <th width="60">状态</th>
+            <th width="80">{:lang('ACTIONS')}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="template_data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td style="height: 100px;">
+                        <notempty name="vo.path">
+                            <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($vo['path'],$vo['type'])}');">
+                                <img src="{:files_truth_path($vo['path'],$vo['type'])}" style="max-height: 100px;max-width: 200px;">
+                            </a>
+                        <else/>
+                            ━
+                        </notempty>
+                    </td>
+                    <td>{$vo.template_name}</td>
+                    <td>{$vo.classify_id|default="━"}</td>
+                    <td>{$vo.level|default="━"}</td>
+                    <td>{$vo.label_id|default="━"}</td>
+                    <td>{$vo.author}</td>
+                    <td>{$vo.modify}</td>
+                    <td>{$vo.status}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success"  href="{:url('Template/edit',array('id'=>$vo['id']))}">详情</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('pub/Pub/delete',array('id'=>$vo['id'],'delet_model'=>'template'))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

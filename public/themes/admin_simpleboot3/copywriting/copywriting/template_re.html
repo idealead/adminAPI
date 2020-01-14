@@ -1,0 +1,18 @@
+
+   <div class="form-group">
+    <label class="col-md-2 control-label">添加标签
+    </label>
+    <div class="col-sm-3 col-md-3 col-xs-3">
+        <select class="form-control"  name="label_id[]">
+             <php>foreach($data as $vo){</php>
+                    <option value="{$vo.id}" selected>{$vo.label_name}</option>
+
+            <php>}</php>
+        </select>
+    </div>
+    <div class="col-sm-1 col-md-1 col-xs-1 my-icon">
+        <a href="javascript:;" class="addInputReturn" >
+            <span class="glyphicon glyphicon-plus"></span>
+     </a>
+     </div>
+    </div>

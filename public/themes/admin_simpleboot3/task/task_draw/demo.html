@@ -1,0 +1,569 @@
+<admintpl file="header" />
+<style type="text/css">
+    .pic-list li {margin-bottom: 5px;}
+    .collocation_box{margin-bottom: 5px;width: 30%;margin-right: 2%;display: inline-block;border: 1px solid #cecece;border-radius: 5px;padding: 5px 0 5px 5px;}
+    .collocation_box>.radio{display: inline-block;width: 30%;}
+    .readonly{cursor: no-drop !important;}
+    .readonly2{cursor: no-drop !important;}
+    a.readonly{display: none;}
+    /*.collocation_box>input[type=radio]{margin:0;}*/
+    li>img{cursor: pointer;}
+</style>
+
+<script type="text/html" id="norms_photo-item-wrapper">
+    <li id="norms_photo{id}">
+        <input id="photo-{id}" type="hidden" name="norms_photo[photo][]" value="{filepath}">
+        <input id="photo-{id}-name" type="text" name="norms_photo[describe][]" placeholder="请输入规格描述" style="width: 160px;" title="规格描述">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;" onclick="parent.image_preview_dialog(this.src);">
+        <a href="javascript:upload_one_image('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#norms_photo{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="function-item-wrapper">
+    <li id="function{id}">
+        <input id="photo-{id}" type="hidden" name="function[photo][]" value="{filepath}">
+        <input id="photo-{id}-name" type="text" name="function[title][]" placeholder="请输入产品功能标题" style="width: 160px;" title="产品功能标题">
+        <input type="text" name="function[subtitle][]" value="" style="width: 160px;" placeholder="请输入产品功能副标题" title="产品功能副标题">
+        <input type="text" name="function[describe][]" value="" style="width: 160px;" placeholder="请输入产品功能描述" title="产品功能描述">
+        <img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;" onclick="parent.image_preview_dialog(this.src);">
+        <a href="javascript:upload_one_image('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#function{id}').remove();})();">移除</a>
+    </li>
+</script>
+<script type="text/html" id="exhibition-item-wrapper">
+    <li id="exhibition{id}">
+        <input  type="hidden" name="exhibition[photo][]" value="{filepath}">
+        <input  type="text" name="exhibition[describe][]" placeholder="请输入图片描述" style="width: 160px;" title="图片描述">
+        <img  src="{url}" style="height:36px;width: 36px;" onclick="parent.image_preview_dialog(this.src);">
+        <a href="javascript:upload_one_image('图片上传','#photo-{id}');">替换</a>
+        <a href="javascript:(function(){$('#exhibition{id}').remove();})();">移除</a>
+    </li>
+</script>
+
+<style>
+    .norms_attr{margin-bottom: 5px;}
+</style>
+<script>
+    var norms_attr_str = "";
+    norms_attr_str += '<div class="norms_attr">';
+    norms_attr_str += '<select name="norms_attr[norms][]" class="norms_attr_name" style="width: 130px">';
+    norms_attr_str += 111111;
+    norms_attr_str += '</select>';
+    norms_attr_str += ' <select name="norms_attr[unit][]" class="norms_attr_unit" style="width: 160px">';
+    norms_attr_str += '<option value="">无</option>';
+    norms_attr_str += 11111;
+    norms_attr_str += '</select>';
+    norms_attr_str += ' &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="norms_attr_val" name="norms_attr[val][]" placeholder="请输入属性值" style="width: 150px">';
+    norms_attr_str += ' <input type="button" class="btn btn-small" onclick="$(this).'+"parent('.norms_attr')"+'.remove();return false;" value="删除属性">';
+    norms_attr_str += ' <input type="text" readonly class="preview_input" placeholder="预览">';
+    norms_attr_str += '</div>';
+
+</script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="">产品列表</a></li>
+        <li class="active"><a href="">添加产品</a></li>
+    </ul>
+    <form action=" " method="post" class="form-horizontal js-ajax-forms" enctype="multipart/form-data">
+        <div class="row-fluid">
+            <div class="span9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="130">产品所属分类</th>
+                        <td>
+                            <select name="post[pid]">
+                                1111
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品名称</th>
+                        <td>
+                            <input type="text" style="width:400px;" name="post[name]" id="name" required value="" placeholder="请输入产品名称"/>
+                            <span class="form-required">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品型号</th>
+                        <td>
+                            <input type="text" name="post[model]" id="model" value="" style="width: 400px" placeholder="请输入产品型号">
+                            <span class="form-required">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>自定义跳转链接</th>
+                        <td>
+                            <input type="text" name="post[url]" id="url" value="" style="width: 400px" placeholder="请输入自定义跳转链接">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>排序</th>
+                        <td>
+                            <input type="text" name="post[listorder]" id="listorder" value="0" style="width: 50px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品属性</th>
+                        <td>
+                            <div class="norms_attr">
+                                <select name="norms_attr[norms][]" style="width: 130px" class="norms_attr_name">
+                                    1111
+                                </select>
+                                <select name="norms_attr[unit][]" style="width: 160px" class="norms_attr_unit">
+                                    <option value="">无</option>
+                                    1111
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="norms_attr[val][]" placeholder="请输入属性值" class="norms_attr_val" style="width: 150px">
+                                <input type="button" class="btn btn-small" onclick="$(this).parent('.norms_attr').remove();return false;" value="删除属性">
+                                <input type="text" readonly class="preview_input" placeholder="预览">
+                            </div>
+                            <input type="button" class="btn btn-small" onclick="$(this).before(norms_attr_str);return false;" value="新增属性" style="background-color: #1abc9c;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="color: red;font-weight: bold;">&nbsp;&nbsp;——&nbsp;↓↓↓&nbsp;&nbsp;&nbsp;&nbsp;下列选项均可点击图片放大预览&nbsp;&nbsp;&nbsp;&nbsp;↓↓↓&nbsp;——&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>规格图<br/>(1200 X 365)<br/><span style="font-size: 12px;">注：图片带视频二维码</span></th>
+                        <td>
+                            <ul id="norms_photo" class="pic-list unstyled"></ul>
+                            <a href="javascript:upload_multi_image('图片上传','#norms_photo','norms_photo-item-wrapper');" class="btn btn-small">选择图片</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品功能<br/>(515 X 350)</th>
+                        <td>
+                            <ul id="function" class="pic-list unstyled"></ul>
+                            <a href="javascript:upload_multi_image('图片上传','#function','function-item-wrapper');" class="btn btn-small">选择图片</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品展示<br/>(515 X 350)</th>
+                        <td>
+                            <ul id="exhibition" class="pic-list unstyled"></ul>
+                            <a href="javascript:upload_multi_image('图片上传','#exhibition','exhibition-item-wrapper');" class="btn btn-small">选择图片</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>搭配建议(660 X 440)<br/><span style="font-size: 12px;">注意:请尽量别用默认图片以免图片拉伸模糊</span></th>
+                        <td>
+                            <div class="collocation_box">
+                                <input type="text" name="collocation[product_id][0]" class="collocation_pid" style="width: 100px" data-n="0" placeholder="请输入产品ID">
+                                <input type="button" class="btn btn-small" style="margin-top: 5px;" onclick="$(this).parent('.collocation_box').remove();return false;" value="删除搭配">
+                            </div>
+                            <input type="button" class="btn btn-small collocation_btn" value="新增搭配建议" style="background-color: #1abc9c;display: block;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品使用手册</th>
+                        <td>
+                            <select name="post[file_id]">
+                                <option value="0">暂缺</option>
+                                11111
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="span3">
+                <table class="table table-bordered">
+                    <tr>
+                        <th><b>产品主图</b>(370 X 250)</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="text-align: center;">
+                                <input type="hidden" name="post[photo]" id="thumb" value="">
+                                <a href="javascript:upload_one_image('图片上传','#thumb');">
+                                    <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb-preview" width="135" style="cursor: hand" />
+                                </a>
+                                <input type="button" class="btn btn-small" onclick="$('#thumb-preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb').val('');return false;" value="取消图片">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><b>产品banner</b>(945 X 405)</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="text-align: center;">
+                                <input type="hidden" name="post[banner]" id="thumb_banner" value="">
+                                <a href="javascript:upload_one_image('图片上传','#thumb_banner');">
+                                    <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb_banner-preview" width="135" style="cursor: hand" />
+                                </a>
+                                <input type="button" class="btn btn-small" onclick="$('#thumb_banner-preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb_banner').val('');return false;" value="取消图片">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><b>产品移动端banner</b>(945 X 405)</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="text-align: center;">
+                                <input type="hidden" name="post[mobanner]" id="thumb_mobanner" value="">
+                                <a href="javascript:upload_one_image('图片上传','#thumb_mobanner');">
+                                    <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb_mobanner-preview" width="135" style="cursor: hand" />
+                                </a>
+                                <input type="button" class="btn btn-small" onclick="$('#thumb_mobanner-preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb_mobanner').val('');return false;" value="取消图片">
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                                    <th><b>产品规格二维码</b></th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="text-align: center;">
+                                            <input type="hidden" name="post[codepic]" id="thumb_codepic" value="">
+                                            <a href="javascript:upload_one_image('图片上传','#thumb_codepic');">
+                                                <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb_codepic-preview" width="135" style="cursor: hand" />
+                                            </a>
+                                            <input type="button" class="btn btn-small" onclick="$('#thumb_codepic-preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb_codepic').val('');return false;" value="取消图片">
+                                        </div>
+                                    </td>
+                                </tr> -->
+                    <tr>
+                        <th><b>发布时间</b></th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="post[createTime]" value="{:date('Y-m-d H:i:s',time())}" class="js-datetime" style="width: 160px;"></td>
+                    </tr>
+                    <tr>
+                        <th><b>状态</b></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="radio"><input type="radio" name="post[status]" value="1" checked>显示</label>
+                            <label class="radio"><input type="radio" name="post[status]" value="0">待审核</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="radio"><input type="radio" name="post[is_top]" value="1">置顶</label>
+                            <label class="radio"><input type="radio" name="post[is_top]" value="0" checked>未置顶</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="radio"><input type="radio" name="post[is_star]" value="1">明星产品</label>
+                            <label class="radio"><input type="radio" name="post[is_star]" value="0" checked>普通产品</label>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary js-ajax-submit" type="submit">提交</button>
+            <a class="btn" href="">返回</a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+<script type="text/javascript">
+    // 搭配建议
+    var _submit_btn = $(".btn.btn-primary.js-ajax-submit");
+    var n = 0;
+    var collocation_data = [];
+    function collocation_str_build(n){
+        var str = "";
+        str += '<div class="collocation_box">';
+        str += '<input type="text" name="collocation[product_id]['+n+']" class="collocation_pid" style="width: 100px" placeholder="请输入产品ID" data-n="'+n+'">';
+        str += '<input type="button" class="btn btn-small" style="margin-top: 5px;" onclick="$(this).parent(\'.collocation_box\').remove();return false;" value="删除搭配">';
+        str += '</div>';
+        return str;
+    };
+    function collocation_str_build_after(obj,data,second){
+        var _n = obj.data("n");
+        obj.attr("readonly","readonly").addClass("readonly2");
+        var str = "";
+        str += "<br>";
+        str += '<label class="radio collocation_radio_o"><input type="radio" name="collocation[diy_status]['+_n+']" value="1">开启自定义</label>';
+        str += '<label class="radio collocation_radio_c"><input type="radio" name="collocation[diy_status]['+_n+']" value="0" checked>使用默认</label>';
+        str += '<br>';
+        str += '<input id="collocation_box_photo_'+_n+'" type="hidden" name="collocation[diy_photo]['+_n+']" value="'+data.photo+'">';
+        str += '<img id="collocation_box_photo_'+_n+'-preview" src="/data/upload/'+data.photo+'" style="height:36px;width: 36px;cursor: pointer;" onclick="parent.image_preview_dialog(this.src);">'
+        str += ' <a href="javascript:upload_one_image(\'图片上传\',\'#collocation_box_photo_'+_n+'\');" class="readonly">替换</a>';
+        str += '<br>';
+        str += '<input type="text" class="readonly" name="collocation[diy_name]['+_n+']" readonly style="display: block;margin-top: 5px;" value="'+data.name+'" placeholder="请输入产品名称">';
+        str += '<input type="text" class="readonly" name="collocation[diy_model]['+_n+']" readonly style="display: block;margin-top: 5px;" value="'+data.model+'" placeholder="请输入产品型号">';
+        if(second){
+            str += '<input type="button" class="btn btn-small" style="margin-top: 5px;" onclick="$(this).parent(\'.collocation_box\').remove();return false;" value="删除搭配">';
+        }
+
+        obj.after(str);
+    }
+
+    // 切换
+    $("td").on("click",".collocation_radio_o",collocation_radio_open);
+    $("td").on("click",".collocation_radio_c",collocation_radio_close);
+    function collocation_radio_open(){
+        var _this = $(this);
+        _this.siblings('.readonly').removeAttr('readonly').removeClass('readonly');
+    }
+    function collocation_radio_close(){
+        var _this = $(this).siblings('.collocation_pid');
+        var _parent = _this.parent(".collocation_box");
+        var _n = _this.data("n");
+        _parent.empty().append(_this);
+        if(collocation_data[_n]){
+            collocation_str_build_after(_this,collocation_data[_n],1);
+        }else{
+            collocation_pid_change_second(_this);
+        }
+    }
+
+    // 遍历
+    $("td").on("change",".collocation_pid",collocation_pid_change);
+    function collocation_pid_change(){
+        var _this = $(this);
+        var _n = _this.data("n");
+        var _pid = _this.val();
+
+        _submit_btn.attr("disabled","disabled");
+        $.ajax({
+            url: '/Admin/Product/check_pid',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {pid:_pid,type:"normal"}
+        })
+            .done(function(data) {
+                if(data.code == 0){
+                    var _data = data.data;
+                    collocation_data[_n] = _data;
+                    console.log(collocation_data);
+                    collocation_str_build_after(_this,collocation_data[_n],0);
+                }else{
+                    _this.parent(".collocation_box").empty().append(_this).append(' <input type="button" class="btn btn-small" style="margin-top: 5px;" onclick="$(this).parent('+"'.collocation_box'"+').remove();return false;" value="删除搭配">');
+                }
+            })
+            .fail(function() {
+                alert("系统错误，请刷新");
+            })
+            .always(function() {
+                _submit_btn.removeAttr('disabled');
+            });
+    }
+    function collocation_pid_change_second(obj){
+        var _n = obj.data('n');
+        var _pid = obj.val();
+        _submit_btn.attr("disabled","disabled");
+        $.ajax({
+            url: '/Admin/Product/check_pid',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {pid:_pid,type:"normal"}
+        })
+            .done(function(data) {
+                if(data.code == 0){
+                    var _data = data.data;
+                    collocation_data[_n] = _data;
+                    console.log(collocation_data);
+                    collocation_str_build_after(obj,collocation_data[_n],1);
+                }else{
+                    obj.parent(".collocation_box").empty().append(obj);
+                }
+            })
+            .fail(function() {
+                alert("系统错误，请刷新");
+            })
+            .always(function() {
+                _submit_btn.removeAttr('disabled');
+            });
+    }
+
+    // 新增
+    $(".collocation_btn").click(function(){
+        n ++;
+        var collocation_str=collocation_str_build(n);
+        $(this).before(collocation_str);
+        // $(".collocation_pid").change(collocation_pid_change);
+        return false;
+    })
+
+    // 预览方法
+    $("td").on("change",".norms_attr_name,.norms_attr_unit,.norms_attr_val",preview_input);
+    // $(".norms_attr_name,.norms_attr_unit,.norms_attr_val").change(preview_input);
+    function preview_input(event) {
+        var _this = this;
+        var _p = $(_this).parent(".norms_attr");
+        var _attr = _p.find('.norms_attr_name option:selected').html();
+        var _unit = _p.find('.norms_attr_unit option:selected').html();
+        if(_unit === "无"){
+            _unit = "";
+        }
+        var _val  = _p.find('.norms_attr_val').val();
+        _p.find('.preview_input').val(_attr+_unit+" : "+_val);
+    }
+
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<!-- <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script> -->
+<!-- <script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script> -->
+<script type="text/javascript">
+    $(function() {
+        // $(".js-ajax-close-btn").on('click', function(e) {
+        // 	e.preventDefault();
+        // 	Wind.use("artDialog", function() {
+        // 		art.dialog({
+        // 			id : "question",
+        // 			icon : "question",
+        // 			fixed : true,
+        // 			lock : true,
+        // 			background : "#CCCCCC",
+        // 			opacity : 0,
+        // 			content : "您确定需要关闭当前页面嘛？",
+        // 			ok : function() {
+        // 				setCookie("refersh_time", 1);
+        // 				window.close();
+        // 				return true;
+        // 			}
+        // 		});
+        // 	});
+        // });
+        /////---------------------
+        Wind.use('validate', 'ajaxForm', 'artDialog', function() {
+            //javascript
+
+            //编辑器
+            // editorcontent = new baidu.editor.ui.Editor();
+            // editorcontent.render('content');
+            // try {
+            // 	editorcontent.sync();
+            // } catch (err) {
+            // }
+            //增加编辑器验证规则
+            jQuery.validator.addMethod('editorcontent', function() {
+                try {
+                    editorcontent.sync();
+                } catch (err) {
+                }
+                return editorcontent.hasContents();
+            });
+            var form = $('form.js-ajax-forms');
+            //ie处理placeholder提交问题
+            if ($.browser && $.browser.msie) {
+                form.find('[placeholder]').each(function() {
+                    var input = $(this);
+                    if (input.val() == input.attr('placeholder')) {
+                        input.val('');
+                    }
+                });
+            }
+
+            var formloading = false;
+            //表单验证开始
+            form.validate({
+                //是否在获取焦点时验证
+                onfocusout : false,
+                //是否在敲击键盘时验证
+                onkeyup : false,
+                //当鼠标掉级时验证
+                onclick : false,
+                //验证错误
+                showErrors : function(errorMap, errorArr) {
+                    //errorMap {'name':'错误信息'}
+                    //errorArr [{'message':'错误信息',element:({})}]
+                    try {
+                        $(errorArr[0].element).focus();
+                        art.dialog({
+                            id : 'error',
+                            icon : 'error',
+                            lock : true,
+                            fixed : true,
+                            background : "#CCCCCC",
+                            opacity : 0,
+                            content : errorArr[0].message,
+                            cancelVal : '确定',
+                            cancel : function() {
+                                $(errorArr[0].element).focus();
+                            }
+                        });
+                    } catch (err) {
+                    }
+                },
+                //验证规则
+                rules : {
+                    'post[name]' : {
+                        required : 1
+                    },
+                    'post[model]' : {
+                        required : 1
+                    },
+                    'post[photo]' : {
+                        required : 1
+                    }
+                },
+                //验证未通过提示消息
+                messages : {
+                    'post[name]' : {
+                        required : '产品名称 不能为空'
+                    },
+                    'post[model]' : {
+                        required : '产品型号 不能为空'
+                    },
+                    'post[photo]' : {
+                        required : '产品主图 不能为空'
+                    }
+                },
+                //给未通过验证的元素加效果,闪烁等
+                highlight : false,
+                //是否在获取焦点时验证
+                onfocusout : false,
+                //验证通过，提交表单
+                submitHandler : function(forms) {
+                    if (formloading)
+                        return;
+                    $(forms).ajaxSubmit({
+                        url : form.attr('action'), //按钮上是否自定义提交地址(多按钮情况)
+                        dataType : 'json',
+                        beforeSubmit : function(arr, $form, options) {
+                            formloading = true;
+                        },
+                        success : function(data, statusText, xhr, $form) {
+                            formloading = false;
+                            if (data.status) {
+                                setCookie("refersh_time", 1);
+                                //添加成功
+                                Wind.use("artDialog", function() {
+                                    art.dialog({
+                                        id : "succeed",
+                                        icon : "succeed",
+                                        fixed : true,
+                                        lock : true,
+                                        background : "#CCCCCC",
+                                        opacity : 0,
+                                        content : data.info,
+                                        button : [ {
+                                            name : '继续添加？',
+                                            callback : function() {
+                                                reloadPage(window);
+                                                return true;
+                                            },
+                                            focus : true
+                                        }, {
+                                            name : '返回列表页',
+                                            callback : function() {
+
+                                                return true;
+                                            }
+                                        } ]
+                                    });
+                                });
+                            } else {
+                                artdialog_alert(data.info);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        ////-------------------------
+    });
+</script>
+</body>
+</html>

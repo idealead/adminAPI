@@ -1,0 +1,36 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">常量列表</a></li>
+    </ul>
+
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">常量编号</th>
+            <th width="60">常量名称</th>
+            <th width="80">常量数量</th>
+            <th width="80">{:lang('ACTIONS')}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.number}</td>
+                    <td>
+                        <a class="btn btn-xs btn-success" href= "{:url('Configuration/edit',array('id'=>$vo['id']))}">修改</a>
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

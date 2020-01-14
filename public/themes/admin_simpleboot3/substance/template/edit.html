@@ -1,0 +1,74 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('Template/index')}">模板列表</a></li>
+        <li class="active"><a href="javascript:;">{$data.template_name}模板详情</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Template/edit')}">
+        <input type="hidden" name="id" value="{$data.id}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="template_name" value="{$data.template_name}" placeholder="请填写模板名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板预览图:</label>
+            <div class="col-md-6 col-sm-10">
+                <a href="javascript:parent.imagePreviewDialog('{:files_truth_path($data['path'],$data['type'])}');">
+                    <img src="{:files_truth_path($data['path'],$data['type'])}" style="max-height: 100px;max-width: 200px;">
+                </a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">模板分类:</label>
+            <div class="col-md-6 col-sm-10">
+                <foreach name="data.classify_id" item="vo">
+                    <select name="classify_id[]" class="form-control" style="margin-bottom: 10px;width: 200px;display: inline;">
+                        {$vo}
+                    </select><br>
+                </foreach>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">发布时间:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" value="{$data.createtime}" readonly style="width: 200px;">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">最后修改时间:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" value="{$data.modify}" readonly style="width: 200px;">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+            <php>
+                $status_0 = $data['status'] === 0 ? "selected" : "";
+                $status_1 = $data['status'] === 1 ? "selected" : "";
+                $status_2 = $data['status'] === 2 ? "selected" : "";
+            </php>
+                <select class="form-control" name="status" style="width: 100px;">
+                    <option value="1" {$status_1}>正常</option>
+                    <option value="0" {$status_0}>未审核/待审核</option>
+                    <option value="2" {$status_2}>删除</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('Template/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

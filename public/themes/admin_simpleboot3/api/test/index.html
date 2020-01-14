@@ -1,0 +1,186 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Material/index')}">素材列表</a></li>
+        <li class="active"><a href="javascript:;">添加素材（测试）</a></li>
+    </ul>
+    
+<style>
+    .api_table .th{margin-top: 20px;display: block;}
+    .api_table .btn {background-color: #f1f1f1;border-radius: 5px;margin: 5px 0;border: 1px solid;}
+    .api_table .upload_material_preview{max-width: 300px;}
+</style>
+    <table width="100%" class="api_table">
+        <tr class="th">
+            <th colspan="3">添加素材接口</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="btn upload_material">上传图片</div><br>
+                <img src="http://www.vatti.com.cn/Public/Home/images/about/join/resume_default_head.png" alt="预览图" class="upload_material_preview">
+                <input type="hidden" class="upload_material_id">
+                <input type="hidden" class="upload_material_author" value="1">
+                <br>
+                维度选择：
+                <select class="upload_material_dimension_id">
+                    <foreach name="dimension" item="vo">
+                        <option value="{$vo.id}">{$vo.dimension_name}</option>
+                    </foreach>
+                </select>
+                <br>
+                类型：<input type="text" class="upload_material_type" value="img">
+                <br>
+                文本类型的内容：<input type="text" class="upload_text_content" value="测试文本内容！">
+                <br>
+                内容\配置\自身属性：
+                <textarea class="upload_material_content" cols="30" rows="10"></textarea>
+
+            </td>
+            <td><a href="javascript:;" class="upload_material_submit">请求</a></td>
+        </tr>
+        
+        <tr>
+            <td colspan="2"><hr style="border-top: #000 1px solid;"></td>
+        </tr>
+        <tr class="th">
+            <th colspan="3">添加模板接口</th>
+        </tr>
+        <tr>
+            <td>
+                模版ID（若无-新增，若有-修改）：<input type="text" class="upload_template_id" value="1">
+                <br>
+                模版名称：<input type="text" class="upload_template_name" value="测试模版1">
+                <br>
+                预览图的文件ID：<input type="text" class="upload_template_preview" value="1">
+                <br>
+                上传者ID：<input type="text" class="upload_template_author" value="1">
+                <br>
+                素材ID集合：
+                <textarea class="upload_template_material_content" cols="30" rows="10">[2,[3,5],4]</textarea>
+
+            </td>
+            <td><a href="javascript:;" class="upload_template_submit">请求</a></td>
+        </tr>
+
+    </table>
+
+    <form enctype='multipart/form-data' method="post" id="form_upload_file_once" class="" style="display: none;">
+        <input type="file" id="files_upload_file_once" name="upload_file_once">
+    </form>
+
+    <div class="content" style="width: 98%;border: 1px solid #080808;margin-top: 40px;"></div>
+
+<script src="__STATIC__/js/ajaxfileupload.js"></script>
+<script>
+// 上传图片
+    var photo_up = $(".upload_material");
+    var photo_img = $(".upload_material_preview");
+    var upload_material_id   = $(".upload_material_id");
+    photo_up.click(function(){
+        $("#files_upload_file_once").click();
+    })
+    $("#files_upload_file_once").get(0).addEventListener('change',photo_ajax);
+    function photo_ajax(){
+        $.ajaxFileUpload({
+            url: "{:url('api/files/upload_file_once',['author_id'=>1])}",
+            fileElementId:"files_upload_file_once",
+            type: 'POST',
+            dataType: 'JSON',
+            success:function(data){
+                data = JSON.parse(data);
+                if(data.code !== 0 ){
+                    alert(data.msg);
+                    $("#files_upload_file_once").remove();
+                    $("#form_upload_file_once").append('<input type="file" id="files_upload_file_once" name="upload_file_once">');
+                    $("#files_upload_file_once").get(0).addEventListener('change',photo_ajax);
+                }else{
+                    photo_img.attr("src", data.data.savepath );
+                    upload_material_id.val(data.data.file_id);
+                    $("#files_upload_file_once").remove();
+                    $("#form_upload_file_once").append('<input type="file" id="files_upload_file_once" name="upload_file_once">');
+                    $("#files_upload_file_once").get(0).addEventListener('change',photo_ajax);
+                }
+            },
+            error:function(data){
+                alert("上传失败，请刷新重试");
+            }
+        });
+    }
+
+
+// 上传素材
+    $(".upload_material_submit").click(function(event) {
+        var data = {
+            "material_type" : $(".upload_material_type").val(),  //素材类型：单图-img；组合-whole
+            "text_content"  : $(".upload_text_content").val(),  //纯文字的文字内容；素材类型material_type非纯文字时，可以为空，否则不允许为空；
+            "author"        : $(".upload_material_author").val(),//素材作者
+            "file_id"       : "[" + $(".upload_material_id").val() + "]",    //素材包含的文件ID集，需要JSON字符串
+            "preview"       : $(".upload_material_id").val(),    //预览图
+            "dimension_id"  : $(".upload_material_dimension_id").val(),    //素材维度ID
+            "content"       : $(".upload_material_content").val(),    //素材自身属性\配置
+        };
+        _ajax("upload_material",'material',data,"post");
+    });
+
+// 上传模板
+    $(".upload_template_submit").click(function(event) {
+        var data = {
+            "id"                : $(".upload_template_id").val(),  //模板ID
+            "name"              : $(".upload_template_name").val(),  //模板名称
+            "preview"           : $(".upload_template_preview").val(),//模板预览图ID
+            "author"            : $(".upload_template_author").val(),    //作者
+            "material_content"  : $(".upload_template_material_content").val()    //素材内容
+        };
+        _ajax("upload_template",'template',data,"post");
+    });
+
+
+// 请求
+    function _ajax(_url,_model,_data,_type = 'get'){
+        $.ajax({
+            url: "{:url('api/" + _model + "/" + _url + "')}",
+            type: _type,
+            dataType: 'JSON',
+            data:_data,
+        })
+        .done(function(ret) {
+            console.log("success");
+            var _json_str = "<table  width='100%'>";
+            $.each(ret, function(index, val) {
+                _json_str += "<tr>";
+                _json_str += "<td>";
+                _json_str += index;
+                _json_str += ":";
+                if(typeof(val) == "object"){
+                    $.each(val,function(index2,val2){
+                        _json_str += "<br>";
+                        _json_str += "&nbsp;&nbsp;&nbsp;&nbsp;";
+                        _json_str += index2;
+                        _json_str += ":";
+                        _json_str += val2;
+                    })
+                }else{
+                    _json_str += val;
+                }
+                _json_str += "</td>";
+                _json_str += "</tr>";
+            });
+            _json_str += "</table>";
+
+            $(".content").empty().html(_json_str);
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+    }
+</script>
+
+</div>
+
+</body>
+</html>

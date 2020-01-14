@@ -1,0 +1,35 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="">修改位置信息</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('CopywritingPosition/edit')}">
+        <input type="hidden" name="id" value="{$data.id}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>位置编号:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="name" value="{$data.id}" placeholder="位置编号"  disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>位置名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="position_name" value="{$data.position_name}" placeholder="位置名称">
+            </div>
+        </div>
+
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit" >{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('CopywritingPosition/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

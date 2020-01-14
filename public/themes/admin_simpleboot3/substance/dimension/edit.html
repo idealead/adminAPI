@@ -1,0 +1,56 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Dimension/index')}">维度列表</a></li>
+        <li><a href="{:url('Dimension/add')}">添加维度</a></li>
+        <li class="active"><a href="javascript:;">编辑维度</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('Dimension/add')}">
+        <input type="hidden" name="id" value="{$data.id}">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>维度名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="dimension_name" value="{$data.dimension_name}" placeholder="请填写维度名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="form-required">*</span>维度英文名称:</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" name="dimension_name_en" value="{$data.dimension_name_en}" placeholder="请填写维度英文名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" name="dimension_des" rows="5" cols="57" placeholder="请填写描述">{$data.dimension_des|default = ''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">状态:</label>
+            <div class="col-md-6 col-sm-10">
+            <php>
+                $status_0 = $data['status'] === 0 ? "selected" : "";
+                $status_1 = $data['status'] === 1 ? "selected" : "";
+                $status_2 = $data['status'] === 2 ? "selected" : "";
+            </php>
+                <select class="form-control" name="status">
+                    <option value="1" {$status_1}>显示</option>
+                    <option value="0" {$status_0}>隐藏</option>
+                    <option value="2" {$status_2}>删除</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+            <a class="btn btn-default" href="{:url('Dimension/index')}">返回</a>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

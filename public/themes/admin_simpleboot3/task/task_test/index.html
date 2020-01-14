@@ -1,0 +1,21 @@
+<include file="public@header"/>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+
+    <form method="post" class="form-horizontal  margin-top-20" action="{:url('TaskTest/addPost')} " id="form_dom">
+         <foreach name="data" item="vo">
+            <input type="text" class="form-control" name="id" value="" placeholder={vo}>
+
+         </foreach>
+
+
+
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+

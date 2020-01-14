@@ -1,0 +1,42 @@
+[28-Jun-2019 19:58:39 PRC] PHP Parse error:  syntax error, unexpected '    <!-- ', expecting endswitch (T_ENDSWITCH) or case (T_CASE) or default (T_DEFAULT) in E:\work\cyrd_cmf5.0\data\runtime\temp\2128ff4a03f20939f3812f87ae03c32a.php on line 6
+[28-Jun-2019 19:59:01 PRC] PHP Parse error:  syntax error, unexpected '    <!-- ', expecting endswitch (T_ENDSWITCH) or case (T_CASE) or default (T_DEFAULT) in E:\work\cyrd_cmf5.0\data\runtime\temp\2128ff4a03f20939f3812f87ae03c32a.php on line 6
+[28-Jun-2019 19:59:03 PRC] PHP Parse error:  syntax error, unexpected '    <!-- ', expecting endswitch (T_ENDSWITCH) or case (T_CASE) or default (T_DEFAULT) in E:\work\cyrd_cmf5.0\data\runtime\temp\2128ff4a03f20939f3812f87ae03c32a.php on line 6
+[09-Jul-2019 11:19:09 PRC] PHP Fatal error:  Class 'app\Substance\controller\NavModel' not found in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 28
+[09-Jul-2019 11:19:19 PRC] PHP Fatal error:  Class 'app\Substance\model\SubstanceModel' not found in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 28
+[09-Jul-2019 11:20:00 PRC] PHP Fatal error:  Class 'app\Substance\model\SubstanceModel' not found in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 28
+[09-Jul-2019 11:20:05 PRC] PHP Fatal error:  Class 'app\Substance\model\SubstanceModel' not found in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 28
+[09-Jul-2019 11:31:10 PRC] PHP Fatal error:  Call to undefined function app\Substance\controller\I() in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 42
+[09-Jul-2019 11:32:01 PRC] PHP Fatal error:  Call to undefined method app\Substance\controller\DimensionController::isPost() in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 42
+[09-Jul-2019 11:32:48 PRC] PHP Fatal error:  Call to undefined method app\Substance\controller\DimensionController::isPost() in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 43
+[09-Jul-2019 11:32:52 PRC] PHP Fatal error:  Call to undefined method app\Substance\controller\DimensionController::isPost() in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 43
+[09-Jul-2019 11:38:44 PRC] PHP Fatal error:  Using $this when not in object context in E:\work\cyrd_cmf5.0\app\common.php on line 2
+[09-Jul-2019 11:39:14 PRC] PHP Fatal error:  Using $this when not in object context in E:\work\cyrd_cmf5.0\app\common.php on line 3
+[09-Jul-2019 11:39:42 PRC] PHP Fatal error:  Using $this when not in object context in E:\work\cyrd_cmf5.0\app\substance\common.php on line 2
+[09-Jul-2019 12:09:28 PRC] PHP Fatal error:  Cannot pass parameter 2 by reference in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 47
+[09-Jul-2019 12:10:21 PRC] PHP Fatal error:  Call-time pass-by-reference has been removed in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 47
+[09-Jul-2019 12:12:58 PRC] PHP Fatal error:  Call-time pass-by-reference has been removed in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 47
+[09-Jul-2019 12:12:59 PRC] PHP Fatal error:  Call-time pass-by-reference has been removed in E:\work\cyrd_cmf5.0\app\substance\controller\DimensionController.php on line 47
+[12-Jul-2019 12:07:52 PRC] PHP Parse error:  syntax error, unexpected '<' in E:\work\cyrd_cmf5.0\data\runtime\temp\084c1707d7e941ade69cf624752101d2.php on line 97
+[15-Jul-2019 18:04:40 PRC] PHP Fatal error:  Class 'app\Substance\controller\LabelModel' not found in E:\work\cyrd_cmf5.0\app\substance\controller\LabelController.php on line 118
+[16-Jul-2019 11:50:58 PRC] PHP Fatal error:  Call to undefined function defult() in E:\work\cyrd_cmf5.0\data\runtime\temp\6582fd7512a654bf36537376595ef867.php on line 114
+[22-Jul-2019 10:09:08 PRC] PHP Fatal error:  Class 'Db' not found in E:\work\cyrd_cmf5.0\app\common.php on line 52
+[22-Jul-2019 10:10:06 PRC] PHP Fatal error:  Call to a member function toArray() on array in E:\work\cyrd_cmf5.0\app\common.php on line 56
+[23-Jul-2019 21:00:08 PRC] PHP Fatal error:  Call to a member function getInfo() on null in E:\work\cyrd_cmf5.0\simplewind\cmf\lib\Upload.php on line 107
+[23-Jul-2019 21:06:42 PRC] PHP Fatal error:  Call to a member function getInfo() on null in E:\work\cyrd_cmf5.0\simplewind\cmf\lib\Upload.php on line 107
+[23-Jul-2019 21:07:27 PRC] PHP Fatal error:  Call to a member function getInfo() on null in E:\work\cyrd_cmf5.0\simplewind\cmf\lib\Upload.php on line 107
+[23-Jul-2019 22:06:14 PRC] PHP Fatal error:  Call to undefined function cmf\controller\_get() in E:\work\cyrd_cmf5.0\simplewind\cmf\controller\HomeBaseController.php on line 248
+[14-Aug-2019 19:59:57 PRC] PHP Fatal error:  Call to undefined function app\api\controller\file_content() in E:\work\cyrd_cmf5.0\app\api\controller\TemplateController.php on line 74
+[18-Aug-2019 14:30:01 PRC] PHP Parse error:  syntax error, unexpected '{' in E:\work\cyrd_cmf5.0\data\runtime\temp\e611fe1b39b9285b65b23db2b5c272f7.php on line 118
+[18-Aug-2019 14:46:11 PRC] PHP Fatal error:  Call to undefined method think\model\Collection::buildSql() in E:\work\cyrd_cmf5.0\app\substance\controller\MaterialController.php on line 43
+[18-Aug-2019 14:56:20 PRC] PHP Fatal error:  Call to undefined function sp_get_image_preview_url() in E:\work\cyrd_cmf5.0\data\runtime\temp\e611fe1b39b9285b65b23db2b5c272f7.php on line 118
+[18-Aug-2019 17:33:55 PRC] PHP Fatal error:  Cannot use isset() on the result of a function call (you can use "null !== func()" instead) in E:\work\cyrd_cmf5.0\app\substance\controller\MaterialController.php on line 103
+[18-Aug-2019 17:35:48 PRC] PHP Fatal error:  Call to undefined method think\model\Collection::buildSql() in E:\work\cyrd_cmf5.0\app\substance\controller\MaterialController.php on line 118
+[18-Aug-2019 18:59:15 PRC] PHP Fatal error:  Call to undefined method think\model\Collection::appends() in E:\work\cyrd_cmf5.0\app\substance\controller\MaterialController.php on line 135
+[18-Aug-2019 19:01:19 PRC] PHP Fatal error:  Call to undefined method think\model\Collection::appends() in E:\work\cyrd_cmf5.0\app\substance\controller\MaterialController.php on line 136
+[19-Aug-2019 22:11:47 PRC] PHP Fatal error:  Call to undefined function app\Substance\controller\FindMenuByTypeAndRuturnArray() in E:\work\cyrd_cmf5.0\app\substance\controller\TemplateController.php on line 41
+[22-Aug-2019 11:06:47 PRC] PHP Parse error:  syntax error, unexpected ',', expecting ']' in E:\work\cyrd_cmf5.0\app\substance\controller\TemplateController.php on line 125
+[23-Aug-2019 22:07:11 PRC] PHP Parse error:  syntax error, unexpected '$template_data' (T_VARIABLE) in E:\work\cyrd_cmf5.0\app\substance\controller\TemplateController.php on line 92
+[24-Aug-2019 19:38:02 PRC] PHP Fatal error:  Unsupported operand types in E:\work\cyrd_cmf5.0\app\api\controller\ClientController.php on line 107
+[27-Aug-2019 15:44:05 PRC] PHP Fatal error:  Call to undefined method app\api\controller\ClientController::create_token() in E:\work\cyrd_cmf5.0\app\api\controller\ClientController.php on line 163
+[31-Aug-2019 16:18:21 PRC] PHP Fatal error:  Cannot break/continue 1 level in E:\work\cyrd_cmf5.0\app\api\controller\ClientController.php on line 154
+[31-Aug-2019 16:18:38 PRC] PHP Fatal error:  'break' operator accepts only positive numbers in E:\work\cyrd_cmf5.0\app\api\controller\ClientController.php on line 154

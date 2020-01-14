@@ -1,0 +1,73 @@
+<include file="public@header"/>
+</head>
+<style>
+  .excel{
+
+  margin-left: 100px;
+
+  }
+
+</style>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">部门订单统计</a></li>
+    </ul>
+
+    <form class="well form-inline margin-top-20" method="post" action="{:url('DepartmentStatistical/index')}">
+     时间段选择:
+            <input type="text" class="form-control js-bootstrap-datetime" name="start_time" id="start_time"
+                   value="{$start_time|default=''}"
+                   style="width: 140px;" autocomplete="off">-
+            <input type="text" class="form-control js-bootstrap-datetime" name="end_time" id="end_time"
+                   value="{$end_time|default=''}"
+                   style="width: 140px;" autocomplete="off">
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp; 
+        <a class="btn btn-danger" href="{:url('DepartmentStatistical/index')}">清空</a>
+        <a class="btn btn-success"  onclick="show()">转存excel</a>
+
+    </form>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">部门编号</th>
+            <th width="70">部门名称</th>
+            <th width="60">剩余积分</th>
+            <th width="60">共计消费的积分</th>
+            <th width="60">购买模板数量</th>
+            <th width="80">详细</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <foreach name="data['data']" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.dep_name}</td>
+                    <td>{$vo.integral}</td>
+                    <td>{$vo.cost|default="━"}</td>
+                    <td>{$vo.num}</td>
+                    <td>
+                        <a href="javascript:parent.openIframeLayer('{:url('DepartmentStatistical/detailed',array('id'=>$vo['id']))}');">部门详情</a>
+                    </td>
+
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+
+function show(){
+    var start_time= $("#start_time").val();
+    var end_time= $("#end_time").val();
+    url = "{:url('DepartmentStatistical/departmentOut')}"+"?start_time=" + start_time + "&end_time=" + end_time;
+    window.location.href = url ;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+<ul class="nav nav-tabs">
+            <li class="active"><a href="">文本位置列表</a></li>
+            <li><a href="{:url('CopywritingPosition/add')}">添加新位置</a></li>
+        </ul>
+    <form class="well form-inline margin-top-20" method="get" action="{:url('CopywritingPosition/index')}">
+       位置名称:
+        <input type="text" class="form-control" name="keyword_name" style="width: 200px;"
+               value="{$keyword|default=''}" placeholder="请输入位置名称的关键字..."> &nbsp;&nbsp;
+
+        <button class="btn btn-primary">搜索</button> &nbsp;&nbsp;
+        <a class="btn btn-danger" href="{:url('TaskCategory/index')}">清空</a>
+    </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="60">文本位置编号</th>
+            <th width="100">文本位置名称</th>
+            <th width="80">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="data" item="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.position_name}</td>
+                <td>
+                    <a class="btn btn-success js-ajax-submit"  href="{:url('CopywritingPosition/edit',array('position_name'=>$vo['position_name'],'id'=>$vo['id']))} ">修改</a>
+                    <a class="btn btn-danger js-ajax-submit"  href="{:url('CopywritingPosition/del',array('id'=>$vo['id']))} ">删除</a>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+    <div class="pagination">{$page|default=''}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
